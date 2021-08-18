@@ -223,7 +223,7 @@ class _EmployeeDetailsViewState extends State<EmployeeDetailsView> {
                         padding: EdgeInsets.all(4),
                       ),
                       Text(
-                         "${widget.employee.company.name??''}",
+                         "${widget.employee.username}",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
