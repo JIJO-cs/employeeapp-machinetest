@@ -11,6 +11,7 @@ class MyServerUtils {
   static final baseUrl = "http://www.mocky.io/v2/";
 
   Future<List<EmployeeDetails>> getData(String route, {String header}) async {
+    List<EmployeeDetails> employeeDetails = [];
     Map<String, String> mHeaders = {
       "Content-type": "application/json",
       "x-auth-token": header
@@ -21,39 +22,38 @@ class MyServerUtils {
       print(json.decode(response.body));
       if (response.statusCode == 200) {
         print(json.decode(response.body));
-        _storeEmployeeDetails(response.body); // store tada to Local DB
-        return EmployeeDetails.fromJson(json.decode(response.body));
+        _storeDatatoDataBase(response.body);
+        //_storeEmployeeDetails(response.body); // store tada to Local DB
+        var res = json.decode(response.body);
+        List<dynamic> data = res;
+        data.forEach((element) {
+          employeeDetails.add(EmployeeDetails.fromJson(element));
+        });
+        return employeeDetails;
       } else {
-        return EmployeeDetails.fromJson(json.decode(response.body));
+        return null;
       }
     } catch (ex) {
       print("Exception e :" + ex.toString());
-      return EmployeeDetails();
+      return null;
     }
   }
 
   Future<List<EmployeeDetails>> getTablesFromLocalDB() async {
+    List<EmployeeDetails> employeeDetails = [];
     try {
       DatabaseHelperEmployeeList dbHelper = DatabaseHelperEmployeeList.instance;
-
-      final response = await dbHelper
-          .getEmployeeLists(DatabaseHelperEmployeeList.employeeList);
-      final employees = List<EmployeeDetails>.of(
-        response.map<EmployeeDetails>(
-          (json) => EmployeeDetails(
-            id: json['id'],
-            name: json['name'],
-            username: json['username'],
-            address: json['address'],
-            email: json['email'],
-            phone: json['phone'],
-            company: json['company'],
-            profileImage: json['profileImage'],
-            website: json['website'],
-          ),
-        ),
-      );
-      return employees;
+      // final response = await dbHelper
+      //     .getEmployeeLists(DatabaseHelperEmployeeList.employeeList);
+      //       print('response >>>'+ response.toString());
+      final response =
+          await SharedPrefsUtil.getString(SharedPrefsUtil.SP_EMPLOYEE_DATA);
+      var res = json.decode(response);
+      List<dynamic> data = res;
+      data.forEach((element) {
+        employeeDetails.add(EmployeeDetails.fromJson(element));
+      });
+      return employeeDetails;
     } catch (e) {
       throw e;
     }
@@ -62,15 +62,18 @@ class MyServerUtils {
 
 final myServer = MyServerUtils();
 
+_storeDatatoDataBase(employees) async {
+  await SharedPrefsUtil.putString(SharedPrefsUtil.SP_EMPLOYEE_DATA, employees);
+  print('employee details stored in DB');
+}
+
 _storeEmployeeDetails(employees) async {
   DatabaseHelperEmployeeList dbHelper = DatabaseHelperEmployeeList.instance;
   dbHelper.deleteAll(DatabaseHelperEmployeeList.employeeList);
-  //await dbHelper.insert(DatabaseHelperEmployeeList.employeeList, employees);
-  employees.forEach((v) async {
+  List<dynamic> data = employees;
+  data.forEach((v) async {
     await dbHelper.insert(DatabaseHelperEmployeeList.employeeList, v);
   });
-
   await SharedPrefsUtil.putBool(SharedPrefsUtil.SP_IS_FETCH_DATA, true);
-
   print('employee details stored in DB');
 }

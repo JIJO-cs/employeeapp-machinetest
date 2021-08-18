@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:machine_test/api/myserverutils.dart';
 import 'package:machine_test/model/EmployeeDetails.dart';
-import 'package:machine_test/model/RespObj.dart';
 import 'package:machine_test/utils/sharedprefs_util.dart';
 
 class EmployeeDetailsProvider extends ChangeNotifier {

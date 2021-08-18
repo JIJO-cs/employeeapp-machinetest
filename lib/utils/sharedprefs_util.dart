@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefsUtil {
   static SharedPreferences prefs;
   static const String SP_IS_FETCH_DATA = 'SP_IS_FETCH_DATA';
+  static const String SP_EMPLOYEE_DATA = 'SP_EMPLOYEE_DATA';
 
 
   static Future initialize() async {

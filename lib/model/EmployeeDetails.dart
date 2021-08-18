@@ -5,7 +5,7 @@ class EmployeeDetails {
   String email;
   String profileImage;
   Address address;
-  int phone;
+  String phone;
   String website;
   Company company;
 

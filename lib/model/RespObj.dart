@@ -5,7 +5,7 @@ class RespObj {
 
   RespObj({this.employeeDetails});
 
-  RespObj.fromJson(Map<String, dynamic> json) {
+  RespObj.fromJson(json) {
     if (json != null) {
       employeeDetails =  [];
       json['posts'].forEach((v) {

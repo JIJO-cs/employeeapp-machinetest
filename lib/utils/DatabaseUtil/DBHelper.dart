@@ -11,38 +11,47 @@ class DatabaseHelperEmployeeList {
   
   static final String employeeList = "employee_List";
 
-  static final String employeeID = "employee_ID";
-
-  static final String employeeName = "employee_Name";
-
-  static final String employeeUserName = "employee_UserName";
-
-  static final String employeeEmail = "employee_Email";
-
-  static final String employeeProfileImage = "employee_ProfileImage";
-
-  static final String employeeAddress  = "employee_Address";
-
-  static final String employeePhone  = "employee_Phone";
-
-  static final String employeeWebSite  = "employee_WebSite";
-
-  static final String employeeCompany  = "employee_Company";
+  static final String allEmployeeDetails= "allEmployee_Details";
 
 
+//   static final String employeeID = "employee_ID";
+
+//   static final String employeeName = "employee_Name";
+
+//   static final String employeeUserName = "employee_UserName";
+
+//   static final String employeeEmail = "employee_Email";
+
+//   static final String employeeProfileImage = "employee_ProfileImage";
+
+//   static final String employeeAddress  = "employee_Address";
+
+//   static final String employeePhone  = "employee_Phone";
+
+//   static final String employeeWebSite  = "employee_WebSite";
+
+//   static final String employeeCompany  = "employee_Company";
 
 
-  String queryCrateEmployeeList = '''
+
+
+//   String queryCrateEmployeeList = '''
+// CREATE TABLE $employeeList(
+// $employeeID INTEGER,  
+// $employeeName  TEXT,
+// $employeeUserName  TEXT,
+// $employeeEmail  TEXT,
+// $employeeProfileImage  TEXT,
+// $employeeAddress  TEXT,
+// $employeePhone  INTEGER,
+// $employeeWebSite  TEXT,
+// $employeeCompany TEXT
+// );
+// ''';
+
+String queryCrateEmployeeList = '''
 CREATE TABLE $employeeList(
-$employeeID INTEGER,  
-$employeeName  TEXT,
-$employeeUserName  TEXT,
-$employeeEmail  TEXT,
-$employeeProfileImage  TEXT,
-$employeeAddress  TEXT,
-$employeePhone  INTEGER,
-$employeeWebSite  TEXT,
-$employeeCompany TEXT
+$allEmployeeDetails TEXT
 );
 ''';
 
